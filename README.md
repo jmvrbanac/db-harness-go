@@ -1,5 +1,7 @@
 # Go Database Harness
 
+[![Build Status](https://travis-ci.org/jmvrbanac/db-harness-go.svg?branch=master)](https://travis-ci.org/jmvrbanac/db-harness-go) [![codecov](https://codecov.io/gh/jmvrbanac/db-harness-go/branch/master/graph/badge.svg)](https://codecov.io/gh/jmvrbanac/db-harness-go)
+
 This library is inspired by the `testing.redis` and `testing.mysql` packages
 in Python. It is designed to act as a testing harness for Database servers
 such as Redis, MySQL, Postgres, etc. The primary purpose of a database test
