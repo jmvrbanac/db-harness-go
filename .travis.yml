@@ -1,0 +1,9 @@
+language: go
+go:
+ - 1.7
+
+script:
+  - ./build.sh
+
+after_success:
+ - bash <(curl -s https://codecov.io/bash)
