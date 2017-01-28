@@ -4,7 +4,8 @@ go:
 
 addons:
   apt:
-    - redis-server
+    packages:
+      - redis-server
 
 script:
   - ./build.sh
