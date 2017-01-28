@@ -6,7 +6,10 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"strconv"
 	"strings"
+
+	"github.com/jmvrbanac/db-harness-go/utils"
 )
 
 // Redis is ...
@@ -91,11 +94,25 @@ func (r *Redis) Stop() {
 	}
 
 	r.cmd.Process.Signal(os.Interrupt)
-
 	r.cmd.Wait()
 }
 
 // Cleanup removes any temporary files that may have been created for the harness
 func (r *Redis) Cleanup() {
 	os.RemoveAll("/tmp/go-harness")
+}
+
+// GetDsn returns a new Dsn from current configuration
+func (r *Redis) GetDsn() utils.Dsn {
+	port, _ := strconv.ParseInt(r.cfg["port"], 10, 64)
+
+	d := utils.Dsn{
+		Host:  r.cfg["bind"],
+		Port:  port,
+		Proto: "tcp",
+		ConnectURI: func() string {
+			return "redis://" + r.cfg["bind"] + ":" + r.cfg["port"]
+		},
+	}
+	return d
 }

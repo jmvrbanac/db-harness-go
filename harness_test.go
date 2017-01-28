@@ -23,6 +23,7 @@ var _ = Describe("Redis Harness", func() {
 		h := harness.New(harness.Redis, nil)
 
 		h.Start()
+		Expect(h.GetDsn().ConnectURI()).To(Equal("redis://0.0.0.0:6379"))
 		Expect(canConnect("0.0.0.0:6379")).To(BeTrue())
 
 		h.Stop()
