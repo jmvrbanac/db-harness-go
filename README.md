@@ -18,7 +18,7 @@ their tests against; which is useful for testing migrations or reducing mocking.
 
 **Startup with Defaults**
 ```Go
-import "github.com/jmvrbanac/go-db-harness"
+import "github.com/jmvrbanac/db-harness-go"
 
 // Build a new Harness
 h := harness.New(harness.Redis, nil)
@@ -34,7 +34,7 @@ h.Stop()
 
 **Set a different port**
 ```Go
-import "github.com/jmvrbanac/go-db-harness"
+import "github.com/jmvrbanac/db-harness-go"
 
 // Setup Options
 options := map[string]string {

@@ -1,6 +1,6 @@
 package harness
 
-import "github.com/jmvrbanac/go-db-harness/redis"
+import "github.com/jmvrbanac/db-harness-go/redis"
 
 const (
 	// Redis is a DB Plugin Type

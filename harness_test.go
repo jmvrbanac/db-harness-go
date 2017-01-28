@@ -3,7 +3,7 @@ package harness_test
 import (
 	"net"
 
-	"github.com/jmvrbanac/go-db-harness"
+	"github.com/jmvrbanac/db-harness-go"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
