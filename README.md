@@ -11,14 +11,38 @@ their tests against; which is useful for testing migrations or reducing mocking.
 * Redis
 * MySQL (Not completed)
 * Postgres (Not completed)
+* Rethink (Not completed)
 
 
 ## Example
 
+**Startup with Defaults**
 ```Go
+import "github.com/jmvrbanac/go-db-harness"
 
 // Build a new Harness
 h := harness.New(harness.Redis, nil)
+
+// Initialize and start the harness
+h.Start()
+
+// ... Do your testing here
+
+// Shutdown and cleanup the harness
+h.Stop()
+```
+
+**Set a different port**
+```Go
+import "github.com/jmvrbanac/go-db-harness"
+
+// Setup Options
+options := map[string]string {
+    "port": "2222",
+}
+
+// Build a new Harness
+h := harness.New(harness.Redis, options)
 
 // Initialize and start the harness
 h.Start()
