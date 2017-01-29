@@ -113,7 +113,7 @@ func (r *Redis) GetInfo() utils.DatabaseInfo {
 		Port:     port,
 		Proto:    "tcp",
 		Database: "0",
-		ConnectURI: func() string {
+		ConnectString: func() string {
 			return fmt.Sprintf(
 				"redis://%s:%d",
 				host,

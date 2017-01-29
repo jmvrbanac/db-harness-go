@@ -1,6 +1,6 @@
 # Go Database Harness
 
-[![Build Status](https://travis-ci.org/jmvrbanac/db-harness-go.svg?branch=master)](https://travis-ci.org/jmvrbanac/db-harness-go) [![codecov](https://codecov.io/gh/jmvrbanac/db-harness-go/branch/master/graph/badge.svg)](https://codecov.io/gh/jmvrbanac/db-harness-go)
+[![Build Status](https://travis-ci.org/jmvrbanac/db-harness-go.svg?branch=master)](https://travis-ci.org/jmvrbanac/db-harness-go) [![codecov](https://codecov.io/gh/jmvrbanac/db-harness-go/branch/master/graph/badge.svg)](https://codecov.io/gh/jmvrbanac/db-harness-go)[![GoDoc](https://godoc.org/github.com/jmvrbanac/db-harness-go?status.svg)](https://godoc.org/github.com/jmvrbanac/db-harness-go)
 
 This library is inspired by the `testing.redis` and `testing.mysql` packages
 in Python. It is designed to act as a testing harness for Database servers

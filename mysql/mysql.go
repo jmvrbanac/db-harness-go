@@ -36,6 +36,7 @@ func New() *MySQL {
 			"password": "changeMe",
 			"dir":      "/tmp/go-harness",
 			"database": "test",
+			"proto":    "tcp",
 		},
 	}
 
@@ -200,15 +201,18 @@ func (m *MySQL) GetInfo() utils.DatabaseInfo {
 	port, _ := strconv.ParseInt(m.cfg["port"], 10, 64)
 
 	d := utils.DatabaseInfo{
+		User:     m.cfg["username"],
+		Password: m.cfg["password"],
 		Host:     m.cfg["host"],
 		Port:     port,
-		Proto:    "tcp",
+		Proto:    m.cfg["proto"],
 		Database: m.cfg["database"],
-		ConnectURI: func() string {
+		ConnectString: func() string {
 			return fmt.Sprintf(
-				"%s:%s@tcp(%s:%s)/%s",
+				"%s:%s@%s(%s:%s)/%s",
 				m.cfg["username"],
 				m.cfg["password"],
+				m.cfg["proto"],
 				m.cfg["host"],
 				m.cfg["port"],
 				m.cfg["database"],

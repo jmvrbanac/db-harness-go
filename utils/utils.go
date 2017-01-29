@@ -6,16 +6,18 @@ import (
 	"path"
 )
 
-// URIBuilder is a Plugin defined function to handle building a connection string
-type URIBuilder func() string
+// ConnStringBuilder is a Plugin defined function to handle building a connection string
+type ConnStringBuilder func() string
 
 // DatabaseInfo is the connection string object consumed by users
 type DatabaseInfo struct {
-	Host       string
-	Port       int64
-	Proto      string
-	Database   string
-	ConnectURI URIBuilder
+	User          string
+	Password      string
+	Host          string
+	Port          int64
+	Proto         string
+	Database      string
+	ConnectString ConnStringBuilder
 }
 
 // Plugin is the core interface for Databases
