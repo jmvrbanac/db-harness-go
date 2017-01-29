@@ -10,6 +10,7 @@ import (
 
 	"database/sql"
 
+	// SQL Hooks
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmvrbanac/db-harness-go/utils"
 	"github.com/renstrom/dedent"
@@ -169,14 +170,15 @@ func (m *MySQL) Cleanup() {
 	os.RemoveAll("/tmp/go-harness")
 }
 
-// GetDsn returns a new Dsn from current configuration
-func (m *MySQL) GetDsn() utils.Dsn {
+// GetInfo returns a new DatabaseInfo from current configuration
+func (m *MySQL) GetInfo() utils.DatabaseInfo {
 	port, _ := strconv.ParseInt(m.cfg["port"], 10, 64)
 
-	d := utils.Dsn{
-		Host:  m.cfg["host"],
-		Port:  port,
-		Proto: "tcp",
+	d := utils.DatabaseInfo{
+		Host:     m.cfg["host"],
+		Port:     port,
+		Proto:    "tcp",
+		Database: m.cfg["database"],
 		ConnectURI: func() string {
 			return fmt.Sprintf(
 				"%s:%s@tcp(%s:%s)/%s",

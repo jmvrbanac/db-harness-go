@@ -8,15 +8,16 @@ import (
 	"time"
 )
 
-// DsnStringBuilder is a Plugin defined function to handle building a connection string
-type DsnStringBuilder func() string
+// URIBuilder is a Plugin defined function to handle building a connection string
+type URIBuilder func() string
 
-// Dsn is the connection string object consumed by users
-type Dsn struct {
+// DatabaseInfo is the connection string object consumed by users
+type DatabaseInfo struct {
 	Host       string
 	Port       int64
 	Proto      string
-	ConnectURI DsnStringBuilder
+	Database   string
+	ConnectURI URIBuilder
 }
 
 // Plugin is the core interface for Databases
@@ -25,7 +26,7 @@ type Plugin interface {
 	Start()
 	Stop()
 	Cleanup()
-	GetDsn() Dsn
+	GetInfo() DatabaseInfo
 }
 
 // FindFile looks up a file across the search paths and returns the first path found

@@ -103,15 +103,16 @@ func (r *Redis) Cleanup() {
 	os.RemoveAll("/tmp/go-harness")
 }
 
-// GetDsn returns a new Dsn from current configuration
-func (r *Redis) GetDsn() utils.Dsn {
+// GetInfo returns a new DatabaseInfo from current configuration
+func (r *Redis) GetInfo() utils.DatabaseInfo {
 	port, _ := strconv.ParseInt(r.cfg["port"], 10, 64)
 	host := r.cfg["bind"]
 
-	d := utils.Dsn{
-		Host:  host,
-		Port:  port,
-		Proto: "tcp",
+	d := utils.DatabaseInfo{
+		Host:     host,
+		Port:     port,
+		Proto:    "tcp",
+		Database: "0",
 		ConnectURI: func() string {
 			return fmt.Sprintf(
 				"redis://%s:%d",

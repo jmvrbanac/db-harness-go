@@ -47,9 +47,9 @@ func (h *DatabaseHarness) Stop() {
 	p.Cleanup()
 }
 
-// GetDsn retieves the Dsn values provided by the active plugin
-func (h *DatabaseHarness) GetDsn() utils.Dsn {
-	return h.GetPlugin().GetDsn()
+// GetInfo retieves the Database values provided by the active plugin
+func (h *DatabaseHarness) GetInfo() utils.DatabaseInfo {
+	return h.GetPlugin().GetInfo()
 }
 
 // GetPlugin returns the active Plugin
