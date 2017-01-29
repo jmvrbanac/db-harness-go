@@ -24,8 +24,6 @@ var _ = Describe("DB Harnesses", func() {
 			h := harness.New(harness.MySQL, nil)
 			h.Start()
 
-			// Expect(canConnect("0.0.0.0:3306")).To(BeTrue())
-
 			info := h.GetInfo()
 			Expect(info.ConnectURI()).To(Equal("tester:changeMe@tcp(0.0.0.0:3306)/test"))
 

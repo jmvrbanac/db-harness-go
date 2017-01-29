@@ -11,9 +11,13 @@ their tests against; which is useful for testing migrations or reducing mocking.
 ## Plugin(s)
 
 * Redis
-* MySQL (Not completed)
+* MySQL
 * Postgres (Not completed)
 * Rethink (Not completed)
+
+**Note:** Make sure to stop the harness after your testing (including
+errors). Failure to do so will result in a orphaned server instance that you'll
+have to manually kill.
 
 
 ## Example
