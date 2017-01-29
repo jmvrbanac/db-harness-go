@@ -1,12 +1,14 @@
 package mysql
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
 	"os/exec"
 	"path"
 	"strconv"
+	"time"
 
 	"database/sql"
 
@@ -126,6 +128,31 @@ func (m *MySQL) Initialize(options map[string]string) {
 	)
 }
 
+func (m *MySQL) waitForConnection(maxWait int) (*sql.DB, error) {
+	timeout := time.After(time.Duration(maxWait) * time.Second)
+	tick := time.Tick(100 * time.Millisecond)
+
+	db, err := sql.Open("mysql", "root@tcp(0.0.0.0:3306)/")
+	if err != nil {
+		return db, err
+	}
+
+	// Wait for successful Ping
+	for {
+		select {
+		case <-timeout:
+			return db, errors.New("Timed out waiting for DB connection")
+
+		case <-tick:
+			err := db.Ping()
+
+			if err == nil {
+				return db, err
+			}
+		}
+	}
+}
+
 // Start executes the Harness
 func (m *MySQL) Start() {
 	err := m.cmd.Start()
@@ -133,10 +160,8 @@ func (m *MySQL) Start() {
 		log.Fatal("Couldn't start harness ", err)
 	}
 
-	utils.WaitForFile(path.Join(m.cfg["dir"], "tmp", "mysql.pid"))
-
 	// Create Testing Database and User
-	db, err := sql.Open("mysql", "root@tcp(0.0.0.0:3306)/")
+	db, err := m.waitForConnection(10)
 	utils.CheckFatal(m, err, "Couldn't create create db connection")
 
 	_, err = db.Exec(fmt.Sprintf(

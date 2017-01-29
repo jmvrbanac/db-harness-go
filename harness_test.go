@@ -19,19 +19,19 @@ func canConnect(addr string) bool {
 }
 
 var _ = Describe("DB Harnesses", func() {
-	// Describe("MySQL", func() {
-	// 	It("Should be able to run without options", func() {
-	// 		h := harness.New(harness.MySQL, nil)
-	// 		h.Start()
+	Describe("MySQL", func() {
+		It("Should be able to run without options", func() {
+			h := harness.New(harness.MySQL, nil)
+			h.Start()
 
-	// 		Expect(canConnect("0.0.0.0:3306")).To(BeTrue())
+			// Expect(canConnect("0.0.0.0:3306")).To(BeTrue())
 
-	// 		info := h.GetInfo()
-	// 		Expect(info.ConnectURI()).To(Equal("tester:changeMe@tcp(0.0.0.0:3306)/test"))
+			info := h.GetInfo()
+			Expect(info.ConnectURI()).To(Equal("tester:changeMe@tcp(0.0.0.0:3306)/test"))
 
-	// 		h.Stop()
-	// 	})
-	// })
+			h.Stop()
+		})
+	})
 
 	Describe("Redis", func() {
 		It("Should be able to run without options", func() {

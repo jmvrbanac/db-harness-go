@@ -3,9 +3,7 @@ package utils
 import (
 	"io/ioutil"
 	"log"
-	"os"
 	"path"
-	"time"
 )
 
 // URIBuilder is a Plugin defined function to handle building a connection string
@@ -45,16 +43,6 @@ func FindFile(filename string, searchPaths []string) string {
 	}
 
 	return ""
-}
-
-// WaitForFile is a blocking call to halt execution until a file exists
-func WaitForFile(path string) {
-	_, err := os.Stat(path)
-
-	for err != nil {
-		time.Sleep(100 * time.Millisecond)
-		_, err = os.Stat(path)
-	}
 }
 
 // CheckFatal cleans up harness and logs out a Fatal message
