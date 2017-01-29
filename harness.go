@@ -1,13 +1,15 @@
 package harness
 
 import (
+	"github.com/jmvrbanac/db-harness-go/mysql"
 	"github.com/jmvrbanac/db-harness-go/redis"
 	"github.com/jmvrbanac/db-harness-go/utils"
 )
 
+// DB Plugin selectors
 const (
-	// Redis is a DB Plugin Type
 	Redis = "redis"
+	MySQL = "mysql"
 )
 
 // DatabaseHarness is the abstract for users to interact with
@@ -24,6 +26,7 @@ func New(dbType string, options map[string]string) *DatabaseHarness {
 		Options: options,
 		plugins: map[string]utils.Plugin{
 			Redis: redis.New(),
+			MySQL: mysql.New(),
 		},
 	}
 	return &harness

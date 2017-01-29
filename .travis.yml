@@ -7,6 +7,7 @@ addons:
   apt:
     packages:
       - redis-server
+      - mysql-server
 
 script:
   - ./build.sh

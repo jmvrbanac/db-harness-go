@@ -18,28 +18,44 @@ func canConnect(addr string) bool {
 	return true
 }
 
-var _ = Describe("Redis Harness", func() {
-	It("Should be able to run without options", func() {
-		h := harness.New(harness.Redis, nil)
+var _ = Describe("DB Harnesses", func() {
+	Describe("MySQL", func() {
+		It("Should be able to run without options", func() {
+			h := harness.New(harness.MySQL, nil)
+			h.Start()
 
-		h.Start()
-		Expect(h.GetDsn().ConnectURI()).To(Equal("redis://0.0.0.0:6379"))
-		Expect(canConnect("0.0.0.0:6379")).To(BeTrue())
+			Expect(canConnect("0.0.0.0:3306")).To(BeTrue())
 
-		h.Stop()
-		Expect(canConnect("0.0.0.0:6379")).To(BeFalse())
+			dsn := h.GetDsn()
+			Expect(dsn.ConnectURI()).To(Equal("tester:changeMe@tcp(0.0.0.0:3306)/test"))
+
+			h.Stop()
+		})
 	})
 
-	It("Should be able to accept a port option", func() {
-		options := map[string]string{
-			"port": "2222",
-		}
-		h := harness.New(harness.Redis, options)
+	Describe("Redis", func() {
+		It("Should be able to run without options", func() {
+			h := harness.New(harness.Redis, nil)
 
-		h.Start()
-		Expect(canConnect("0.0.0.0:2222")).To(BeTrue())
+			h.Start()
+			Expect(h.GetDsn().ConnectURI()).To(Equal("redis://0.0.0.0:6379"))
+			Expect(canConnect("0.0.0.0:6379")).To(BeTrue())
 
-		h.Stop()
-		Expect(canConnect("0.0.0.0:2222")).To(BeFalse())
+			h.Stop()
+			Expect(canConnect("0.0.0.0:6379")).To(BeFalse())
+		})
+
+		It("Should be able to accept a port option", func() {
+			options := map[string]string{
+				"port": "2222",
+			}
+			h := harness.New(harness.Redis, options)
+
+			h.Start()
+			Expect(canConnect("0.0.0.0:2222")).To(BeTrue())
+
+			h.Stop()
+			Expect(canConnect("0.0.0.0:2222")).To(BeFalse())
+		})
 	})
 })

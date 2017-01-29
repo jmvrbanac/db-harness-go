@@ -2,6 +2,7 @@ package redis
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -12,13 +13,13 @@ import (
 	"github.com/jmvrbanac/db-harness-go/utils"
 )
 
-// Redis is ...
+// Redis is the plugin data type
 type Redis struct {
 	cmd *exec.Cmd
 	cfg map[string]string
 }
 
-// New is ...
+// New creates a new Redis Plugin
 func New() *Redis {
 	r := &Redis{
 		cfg: map[string]string{
@@ -105,13 +106,18 @@ func (r *Redis) Cleanup() {
 // GetDsn returns a new Dsn from current configuration
 func (r *Redis) GetDsn() utils.Dsn {
 	port, _ := strconv.ParseInt(r.cfg["port"], 10, 64)
+	host := r.cfg["bind"]
 
 	d := utils.Dsn{
-		Host:  r.cfg["bind"],
+		Host:  host,
 		Port:  port,
 		Proto: "tcp",
 		ConnectURI: func() string {
-			return "redis://" + r.cfg["bind"] + ":" + r.cfg["port"]
+			return fmt.Sprintf(
+				"redis://%s:%d",
+				host,
+				port,
+			)
 		},
 	}
 	return d
